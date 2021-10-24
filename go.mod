@@ -1,4 +1,4 @@
-module uniswap_pairs
+module github.com/nikolalosic/dex_pairs
 
 go 1.17
 

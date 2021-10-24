@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/nikolalosic/dex_pairs/dex"
 	"github.com/umbracle/go-web3"
 	"io/ioutil"
 	"log"
@@ -12,7 +13,6 @@ import (
 	"runtime"
 	"sync"
 	"time"
-	"uniswap_pairs/dex"
 )
 
 var UniswapV1FactoryAddress = web3.HexToAddress("0xc0a47dfe034b400b47bdad5fecda2621de6c4d95")
