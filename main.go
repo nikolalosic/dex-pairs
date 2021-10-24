@@ -132,19 +132,10 @@ func getDex(dexId string, dexVersion int, chainId int) (dex.DexExchange, error) 
 	return nil, errors.New("no appropriate DEX found")
 }
 
-func main() {
-
-	// flags declaration using flag package
-	var inputFile, outputFile, dexExchange string
-	var cores, chainId, dexVersion int
-	flag.StringVar(&inputFile, "input-file", "dex_pairs.json", "Specify input file.")
-	flag.StringVar(&outputFile, "output-file", "dex_pairs.json", "Specify output file.")
-	flag.IntVar(&cores, "cores", runtime.NumCPU()/2, "Specify number of cores to use. Default is runtime.NumCPU()/2.")
-	flag.StringVar(&dexExchange, "dex-exchange", "uniswap", "Specify from which DEX exchange to get pairs.")
-	flag.IntVar(&chainId, "chain-id", 1, "Specify chain id.")
-	flag.IntVar(&dexVersion, "dex-version", 2, "Specify from which DEX exchange version to get pairs.")
-	flag.Parse()
-
+//ExportPairs Exports DEX pairs to a file
+func ExportPairs(
+	inputFile string, outputFile string, dexExchange string, cores int, chainId int, dexVersion int,
+) error {
 	exchange, err := getDex(dexExchange, dexVersion, chainId)
 	if err != nil {
 		panic("Cannot Get DEX")
@@ -152,12 +143,13 @@ func main() {
 	pn, err := exchange.GetPairNumber()
 	if err != nil {
 		log.Printf("Error getting all pairs length")
-		return
+		return err
 	}
 	pairCount := int(pn.Int64())
 	data, err := getDataFromFile(inputFile)
 	if err != nil {
 		log.Printf("Error reading data from input file")
+		return err
 	}
 	n := len(data.Tokens) - 1
 	if n < 0 {
@@ -173,7 +165,8 @@ func main() {
 		jobCount++
 	}
 	if jobCount == 0 {
-		return
+		log.Printf("No jobs to run")
+		return nil
 	}
 	if jobCount < cores {
 		cores = jobCount
@@ -210,7 +203,25 @@ func main() {
 	log.Printf("Completed getting pairs")
 	err = saveToFile(data, outputFile)
 	if err != nil {
-		return
+		return err
 	}
 
+	return nil
+}
+
+func main() {
+	var inputFile, outputFile, dexExchange string
+	var cores, chainId, dexVersion int
+	flag.StringVar(&inputFile, "input-file", "dex_pairs.json", "Specify input file.")
+	flag.StringVar(&outputFile, "output-file", "dex_pairs.json", "Specify output file.")
+	flag.IntVar(&cores, "cores", runtime.NumCPU()/2, "Specify number of cores to use. Default is runtime.NumCPU()/2.")
+	flag.StringVar(&dexExchange, "dex-exchange", "uniswap", "Specify from which DEX exchange to get pairs.")
+	flag.IntVar(&chainId, "chain-id", 1, "Specify chain id.")
+	flag.IntVar(&dexVersion, "dex-version", 2, "Specify from which DEX exchange version to get pairs.")
+	flag.Parse()
+	err := ExportPairs(inputFile, outputFile, dexExchange, cores, chainId, dexVersion)
+	if err != nil {
+		log.Fatalf("Error exporing pairs")
+		return
+	}
 }
