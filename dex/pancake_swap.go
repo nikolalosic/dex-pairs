@@ -17,6 +17,7 @@ type PancakeSwap struct {
 	chainId int
 }
 
+// NewPancakeSwap creates a new instance of the PancakeSwap DEX
 func NewPancakeSwap(factoryAddress web3.Address, chainId int, nodeUrl string) (*PancakeSwap, error) {
 	client, err := jsonrpc.NewClient(nodeUrl)
 	if err != nil {

@@ -24,8 +24,7 @@ func (pf *PancakeFactory) Contract() *contract.Contract {
 	return pf.c
 }
 
-// calls
-
+// AllPairs returns pair at the specific index
 func (pf *PancakeFactory) AllPairs(n int64, block ...web3.BlockNumber) (retval0 web3.Address, err error) {
 	var out map[string]interface{}
 	var ok bool
@@ -44,6 +43,7 @@ func (pf *PancakeFactory) AllPairs(n int64, block ...web3.BlockNumber) (retval0 
 	return
 }
 
+// AllPairsLength returns number of pairs
 func (pf *PancakeFactory) AllPairsLength(block ...web3.BlockNumber) (retval0 *big.Int, err error) {
 	var out map[string]interface{}
 	var ok bool

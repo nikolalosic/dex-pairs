@@ -17,6 +17,7 @@ type Uniswap struct {
 	chainId int
 }
 
+// NewUniswap creates a new instance of the Uniswap DEX
 func NewUniswap(factoryAddress web3.Address, chainId int, nodeUrl string) (*Uniswap, error) {
 	client, err := jsonrpc.NewClient(nodeUrl)
 	if err != nil {

@@ -24,8 +24,7 @@ func (usf *UniswapFactory) Contract() *contract.Contract {
 	return usf.c
 }
 
-// calls
-
+// AllPairs returns pair at the specific index
 func (usf *UniswapFactory) AllPairs(n int64, block ...web3.BlockNumber) (retval0 web3.Address, err error) {
 	var out map[string]interface{}
 	var ok bool
@@ -44,6 +43,7 @@ func (usf *UniswapFactory) AllPairs(n int64, block ...web3.BlockNumber) (retval0
 	return
 }
 
+// AllPairsLength returns number of pairs
 func (usf *UniswapFactory) AllPairsLength(block ...web3.BlockNumber) (retval0 *big.Int, err error) {
 	var out map[string]interface{}
 	var ok bool

@@ -24,7 +24,6 @@ func (up *UniswapPair) Contract() *contract.Contract {
 	return up.c
 }
 
-// calls
 // Token0 calls the token0 method in the solidity contract
 func (up *UniswapPair) Token0(block ...web3.BlockNumber) (retval0 web3.Address, err error) {
 	var out map[string]interface{}
@@ -107,8 +106,10 @@ func (up *UniswapPair) BalanceOf(owner web3.Address, block ...web3.BlockNumber) 
 	return
 }
 
+// GetReserves calls the getReserves method in the solidity contract
 func (up *UniswapPair) GetReserves(
-	owner web3.Address, block ...web3.BlockNumber,
+	owner web3.Address,
+	block ...web3.BlockNumber,
 ) (retval0 *big.Int, retval1 *big.Int, err error) {
 	var out map[string]interface{}
 	var ok bool
@@ -229,10 +230,12 @@ func (up *UniswapPair) TransferFrom(from web3.Address, to web3.Address, value *b
 
 // events
 
+// ApprovalEventSig Gets Approval event ID
 func (up *UniswapPair) ApprovalEventSig() web3.Hash {
 	return up.c.ABI().Events["Approval"].ID()
 }
 
+// TransferEventSig Gets Transfer event ID
 func (up *UniswapPair) TransferEventSig() web3.Hash {
 	return up.c.ABI().Events["Transfer"].ID()
 }

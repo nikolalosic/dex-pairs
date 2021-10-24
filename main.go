@@ -15,24 +15,24 @@ import (
 	"time"
 )
 
-var UniswapV1FactoryAddress = web3.HexToAddress("0xc0a47dfe034b400b47bdad5fecda2621de6c4d95")
-var UniswapV2FactoryAddress = web3.HexToAddress("0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f")
-var UniswapV3FactoryAddress = web3.HexToAddress("0x1f98431c8ad98523631ae4a59f267346ea31f984")
-var PancakeSwapV1FactoryAddress = web3.HexToAddress("0xbcfccbde45ce874adcb698cc183debcf17952812")
-var PancakeSwapV2FactoryAddress = web3.HexToAddress("0xca143ce32fe78f1f7019d7d551a6402fc5350c73")
+var uniswapV1FactoryAddress = web3.HexToAddress("0xc0a47dfe034b400b47bdad5fecda2621de6c4d95")
+var uniswapV2FactoryAddress = web3.HexToAddress("0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f")
+var uniswapV3FactoryAddress = web3.HexToAddress("0x1f98431c8ad98523631ae4a59f267346ea31f984")
+var pancakeSwapV1FactoryAddress = web3.HexToAddress("0xbcfccbde45ce874adcb698cc183debcf17952812")
+var pancakeSwapV2FactoryAddress = web3.HexToAddress("0xca143ce32fe78f1f7019d7d551a6402fc5350c73")
 
 var factoryContracts = map[string]map[int]map[int]web3.Address{
 	"pancakeswap": {
 		56: {
-			1: PancakeSwapV1FactoryAddress,
-			2: PancakeSwapV2FactoryAddress,
+			1: pancakeSwapV1FactoryAddress,
+			2: pancakeSwapV2FactoryAddress,
 		},
 	},
 	"uniswap": {
 		1: {
-			1: UniswapV1FactoryAddress,
-			2: UniswapV2FactoryAddress,
-			3: UniswapV3FactoryAddress,
+			1: uniswapV1FactoryAddress,
+			2: uniswapV2FactoryAddress,
+			3: uniswapV3FactoryAddress,
 		},
 	},
 }
@@ -47,15 +47,15 @@ type result struct {
 	err   error
 }
 
-type FileTemplate struct {
+type fileTemplate struct {
 	Name      string     `json:"name"`
 	Timestamp time.Time  `json:"timestamp"`
-	Version   Version    `json:"version"`
+	Version   version    `json:"version"`
 	Keywords  []string   `json:"keywords"`
 	Tokens    []dex.Pair `json:"tokens"`
 }
 
-type Version struct {
+type version struct {
 	Major int `json:"major"`
 	Minor int `json:"minor"`
 	Patch int `json:"patch"`
@@ -64,9 +64,9 @@ type Version struct {
 var counter = 0
 var m = sync.RWMutex{}
 
-func getDataFromFile(fileName string) (*FileTemplate, error) {
+func getDataFromFile(fileName string) (*fileTemplate, error) {
 	log.Printf("Reading data from file %s", fileName)
-	ft := FileTemplate{}
+	ft := fileTemplate{}
 	if _, err := os.Stat(fileName); os.IsNotExist(err) {
 		return &ft, nil
 	}
@@ -108,7 +108,7 @@ func getPairs(start int, end int, dexExchange string, dexVersion int, chainId in
 	return res
 }
 
-func saveToFile(fileData *FileTemplate, fileName string) error {
+func saveToFile(fileData *fileTemplate, fileName string) error {
 	log.Printf("Saving data to file %s", fileName)
 	data, err := json.Marshal(fileData)
 	if err != nil {
