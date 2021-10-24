@@ -5,7 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/nikolalosic/dex_pairs/dex"
+	"github.com/nikolalosic/dex-pairs/dex"
 	"github.com/umbracle/go-web3"
 	"io/ioutil"
 	"log"
@@ -212,8 +212,8 @@ func ExportPairs(
 func main() {
 	var inputFile, outputFile, dexExchange string
 	var cores, chainId, dexVersion int
-	flag.StringVar(&inputFile, "input-file", "dex_pairs.json", "Specify input file.")
-	flag.StringVar(&outputFile, "output-file", "dex_pairs.json", "Specify output file.")
+	flag.StringVar(&inputFile, "input-file", "dex-pairs.json", "Specify input file.")
+	flag.StringVar(&outputFile, "output-file", "dex-pairs.json", "Specify output file.")
 	flag.IntVar(&cores, "cores", runtime.NumCPU()/2, "Specify number of cores to use. Default is runtime.NumCPU()/2.")
 	flag.StringVar(&dexExchange, "dex-exchange", "uniswap", "Specify from which DEX exchange to get pairs.")
 	flag.IntVar(&chainId, "chain-id", 1, "Specify chain id.")

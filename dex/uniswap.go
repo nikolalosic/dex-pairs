@@ -2,7 +2,7 @@ package dex
 
 import (
 	"fmt"
-	"github.com/nikolalosic/dex_pairs/contracts"
+	"github.com/nikolalosic/dex-pairs/contracts"
 	"github.com/umbracle/go-web3"
 	"github.com/umbracle/go-web3/contract/builtin/erc20"
 	"github.com/umbracle/go-web3/jsonrpc"
