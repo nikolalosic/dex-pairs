@@ -38,12 +38,12 @@ func (ps *PancakeSwap) GetPair(n int64) (*Pair, error) {
 		return nil, err
 	}
 	pairContract := contracts.NewUniswapPair(pairAddress, ps.client)
-	pairSymbol, err := pairContract.Symbol(web3.Latest)
-	pairName, err := pairContract.Name(web3.Latest)
-	pairDecimals, err := pairContract.Decimals(web3.Latest)
+	pairSymbol, _ := pairContract.Symbol(web3.Latest)
+	pairName, _ := pairContract.Name(web3.Latest)
+	pairDecimals, _ := pairContract.Decimals(web3.Latest)
 
-	token0, err := pairContract.Token0(web3.Latest)
-	token1, err := pairContract.Token1(web3.Latest)
+	token0, _ := pairContract.Token0(web3.Latest)
+	token1, _ := pairContract.Token1(web3.Latest)
 
 	token0Contract := erc20.NewERC20(token0, ps.client)
 	token1Contract := erc20.NewERC20(token1, ps.client)

@@ -121,10 +121,14 @@ func (a *PancakePair) GetReserves(
 
 	// decode outputs
 	retval0, ok = out["_reserve0"].(*big.Int)
+	if !ok {
+		err = fmt.Errorf("failed to encode output at index 0")
+		return
+	}
 	retval1, ok = out["_reserve1"].(*big.Int)
 
 	if !ok {
-		err = fmt.Errorf("failed to encode output at index 0")
+		err = fmt.Errorf("failed to encode output at index 1")
 		return
 	}
 
