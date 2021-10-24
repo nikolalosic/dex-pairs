@@ -137,12 +137,12 @@ func main() {
 	// flags declaration using flag package
 	var inputFile, outputFile, dexExchange string
 	var cores, chainId, dexVersion int
-	flag.StringVar(&inputFile, "input-file", "dex_pairs.json", "Specify input file. Default is dex_pairs.json")
-	flag.StringVar(&outputFile, "output-file", "dex_pairs.json", "Specify output file. Default is dex_pairs.json")
-	flag.IntVar(&cores, "cores", runtime.NumCPU()/2, "Specify number of cores to use. Default is runtime.NumCPU()/2")
-	flag.StringVar(&dexExchange, "dex-exchange", "uniswap", "Specify from which DEX exchange to get pairs. Default is uniswap.")
-	flag.IntVar(&chainId, "chain-id", 1, "Specify chain id. Default is 1.")
-	flag.IntVar(&dexVersion, "dex-version", 2, "Specify from which DEX exchange version to get pairs. Default is 2.")
+	flag.StringVar(&inputFile, "input-file", "dex_pairs.json", "Specify input file.")
+	flag.StringVar(&outputFile, "output-file", "dex_pairs.json", "Specify output file.")
+	flag.IntVar(&cores, "cores", runtime.NumCPU()/2, "Specify number of cores to use. Default is runtime.NumCPU()/2.")
+	flag.StringVar(&dexExchange, "dex-exchange", "uniswap", "Specify from which DEX exchange to get pairs.")
+	flag.IntVar(&chainId, "chain-id", 1, "Specify chain id.")
+	flag.IntVar(&dexVersion, "dex-version", 2, "Specify from which DEX exchange version to get pairs.")
 	flag.Parse()
 
 	exchange, err := getDex(dexExchange, dexVersion, chainId)
