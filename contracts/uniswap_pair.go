@@ -9,10 +9,6 @@ import (
 	"github.com/umbracle/go-web3/jsonrpc"
 )
 
-var (
-	_ = big.NewInt
-)
-
 // UniswapPair is a solidity contract
 type UniswapPair struct {
 	c *contract.Contract

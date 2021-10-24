@@ -9,14 +9,6 @@ import (
 	"github.com/umbracle/go-web3/jsonrpc"
 )
 
-var (
-	_ = big.NewInt
-)
-
-var (
-	_ = big.NewInt
-)
-
 // PancakeFactory is a solidity contract
 type PancakeFactory struct {
 	c *contract.Contract
